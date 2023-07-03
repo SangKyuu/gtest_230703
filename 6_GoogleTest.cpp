@@ -32,3 +32,21 @@ TEST(SampleTest, Sample2)
     EXPECT_EQ(foo(), 42);
     EXPECT_EQ(goo(), 100);
 }
+
+class User {
+    std::string name = "Tom";
+
+public:
+    std::string GetName() const { return name; }
+};
+
+User* GetUser() { return nullptr; }
+
+TEST(SampleTest, Sample3)
+{
+    User* user = GetUser();
+
+    // EXPECT_NE(user, nullptr);
+    ASSERT_NE(user, nullptr); // 의도적으로 이후의 단언문을 수행하지 않습니다.
+    EXPECT_EQ(user->GetName(), "Tom");
+}
