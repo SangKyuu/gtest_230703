@@ -7,6 +7,7 @@ public:
 
     void Enter(double n) { }
     void PressPlus() { }
+    void PressMinus() { }
     void PressEquals() { }
 };
 
@@ -20,5 +21,9 @@ public:
 // 2. Google Test에서 테스트케이스를 만드는 방법
 //  => TEST(TestSuite 이름, TestCase 이름)
 TEST(CalcTest, PressPlus)
+{
+}
+
+TEST(CalcTest, PressMinus)
 {
 }
