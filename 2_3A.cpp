@@ -31,8 +31,22 @@ TEST(CalcTest, PressPlus)
 //   1) Arrange: 테스트 대상 코드를 초기화하고, 필요한 경우 설정하고 준비합니다.
 //   2) Act: 테스트 대상 코드에 작용을 가합니다.
 //   3) Assert: 기대하는 바를 단언합니다.
+
+// 4. 테스트 코드의 품질
+//   1) 가독성
+//     - 테스트 코드의 구성
+//     - 테스트 코드의 이름을 통해 테스트의 시나리오가 제대로 드러나는가?
+//       테스트 코드의 실패 메세지를 통해 실패의 원인을 파악할 수 있는가?
+
+//   2) 유지보수성
+//   3) 신뢰성
+
+#define SPEC printf
+
 TEST(CalcTest, PressMinus)
 {
+    SPEC("10에서 5를 뺐을 때, 5가 나오지는 여부를 검증합니다.\n");
+
     // Arrange
     Calc* calc = new Calc;
 
@@ -44,7 +58,7 @@ TEST(CalcTest, PressMinus)
 
     // Assert
     if (calc->Display() != 5) {
-        FAIL() << "기대한 결과 다릅니다.";
+        FAIL() << "결과값이 5가 아닙니다.";
     } else {
         SUCCEED();
     }
