@@ -28,8 +28,19 @@ public:
 };
 
 // 2) 등록하는 방법
+// > 주의사항: 객체를 new로 생성해서 전달해야 합니다.
+
 //   - 전역 변수
-testing::Environment* myEnv1 = testing::AddGlobalTestEnvironment(
-    new MyEnvironment);
+// testing::Environment* myEnv1 = testing::AddGlobalTestEnvironment(new MyEnvironment);
 
 //   - main 함수
+int main(int argc, char** argv)
+{
+    testing::InitGoogleTest(&argc, argv);
+    // 프로그램에 전달된 커맨트 옵션에 대해서,
+    // 구글 테스트 프레임워크의 옵션을 처리하고, 제거합니다.
+
+    testing::AddGlobalTestEnvironment(new MyEnvironment);
+
+    return RUN_ALL_TESTS();
+}
