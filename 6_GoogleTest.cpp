@@ -83,3 +83,41 @@ TEST(SampleTest3, Sample1)
     EXPECT_FLOAT_EQ(a, b);
     EXPECT_NEAR(a, b, 0.00000001);
 }
+
+void OpenFile(const std::string& filename)
+{
+    if (filename.empty()) {
+        throw std::invalid_argument("invalid filename");
+        // throw 1;
+    }
+
+    // ...
+}
+
+// 잘못된 파일명을 전달하였을 경우, std::invalid_argument 예외가
+// 발생하는지 여부를 검증하고 싶다.
+TEST(SampleTest4, OpenFile)
+{
+    std::string emptyFileName = "";
+
+    try {
+        OpenFile(emptyFileName);
+        FAIL() << "기대한 예외가 발생하지 않음";
+    } catch (std::invalid_argument& e) {
+        SUCCEED();
+    } catch (...) {
+        FAIL() << "다른 종류의 예외가 발생함.";
+    }
+}
+
+// 4. 예외 검증 단언문을 제공합니다.
+//  => EXPECT_THROW: 기대한 예외가 발생하는지 여부를 검증합니다.
+//     EXPECT_NO_THROW: 예외가 발생하지 않음을 검증합니다.
+//     EXPECT_ANY_THROW: 예외가 발생하는지 여부를 검증합니다.
+
+TEST(SampleTest4, OpenFile2)
+{
+    std::string emptyFileName = "";
+
+    EXPECT_THROW(OpenFile(emptyFileName), std::invalid_argument);
+}
