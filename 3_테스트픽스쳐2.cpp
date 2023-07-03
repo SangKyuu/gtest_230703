@@ -2,7 +2,7 @@
 class Calc {
 public:
     //---- 요구사항의 변경
-    Calc(int n) { }
+    // Calc(int n) { }
     //----
 
     double Display() { return 0.0; }
@@ -23,6 +23,8 @@ public:
 // 2. Test Fixture 설치하는 방법 3가지
 
 // 2) Delegate Setup(위임 설치)
+//  > 픽스쳐 설치에 관한 코드를 별도의 "테스트 유틸리티 함수"를 통해 캡슐화합니다.
+//  * 테스트 스위트 안에서만 사용할 수 있는 테스트 유틸리티 함수를 제공해 주어야 합니다.
 
 TEST(CalcTest, PressPlus)
 {
