@@ -27,6 +27,25 @@ TEST(CalcTest, PressPlus)
     FAIL() << "작성 중입니다.";
 }
 
+// 3. 테스트케이스를 작성하는 방법 - 3A
+//   1) Arrange: 테스트 대상 코드를 초기화하고, 필요한 경우 설정하고 준비합니다.
+//   2) Act: 테스트 대상 코드에 작용을 가합니다.
+//   3) Assert: 기대하는 바를 단언합니다.
 TEST(CalcTest, PressMinus)
 {
+    // Arrange
+    Calc* calc = new Calc;
+
+    // Act
+    calc->Enter(10);
+    calc->PressMinus();
+    calc->Enter(5);
+    calc->PressEquals();
+
+    // Assert
+    if (calc->Display() != 5) {
+        FAIL() << "기대한 결과 다릅니다.";
+    } else {
+        SUCCEED();
+    }
 }
