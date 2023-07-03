@@ -15,7 +15,10 @@ $ mv googletest-1.13.0/ googletest
 # gtest-all.cc
 $ g++ ./googletest/googletest/src/gtest-all.cc -I ./googletest/googletest/include/ -I ./googletest/googletest/ -c
 
+# gtest_main.cc
+$ g++ ./googletest/googletest/src/gtest_main.cc -I ./googletest/googletest/include -c
+
 # libgtest.a
-$ ar rcv libgtest.a gtest-all.o
+$ ar rcv libgtest.a gtest-all.o gtest_main.o
 
 ```
