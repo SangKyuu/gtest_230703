@@ -80,7 +80,7 @@ TEST(SampleTest3, Sample1)
     double b = 0.1 * 7.1;
 
     // EXPECT_EQ(a, b);
-    EXPECT_FLOAT_EQ(a, b);
+    EXPECT_DOUBLE_EQ(a, b);
     EXPECT_NEAR(a, b, 0.00000001);
 }
 
@@ -128,9 +128,11 @@ TEST(SampleTest4, OpenFile2)
 // => 테스트를 비활성화해서, 테스트를 수행하지 않고,
 //    결과에 포함되지는 않지만 비활성화 되었다는 사실을 지속적으로 알리는 기능이
 //    필요합니다.
-
 // - 테스트케이스 또는 테스트스위트 이름이 DISABLED_로 시작하면
 //   테스트는 비활성화됩니다.
+// - 비활성화된 테스트를 실행할 수 있는 기능을 제공합니다.
+//  $ ./a.out --gtest_also_run_disabled_tests
+
 // TEST(ImageProcessorTest, DISABLED_ResizeImage)
 TEST(DISABLED_ImageProcessorTest, ResizeImage)
 {
