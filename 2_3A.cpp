@@ -22,6 +22,9 @@ public:
 //  => TEST(TestSuite 이름, TestCase 이름)
 TEST(CalcTest, PressPlus)
 {
+    // 작성 중인 테스트는 명시적으로 테스트가 실패해야 합니다.
+    //  > 실패의 원인을 작성해주어야 합니다.
+    FAIL() << "작성 중입니다.";
 }
 
 TEST(CalcTest, PressMinus)
