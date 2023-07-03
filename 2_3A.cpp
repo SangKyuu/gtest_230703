@@ -39,6 +39,13 @@ TEST(CalcTest, PressPlus)
 //       테스트 코드의 실패 메세지를 통해 실패의 원인을 파악할 수 있는가?
 
 //   2) 유지보수성
+//     - 테스트 코드도 유지보수의 대상입니다.
+//     - "유지보수의 비용이 최소화"되어야 합니다.
+//     - 오류가 발생할 수 있는 가능성이 있는 코드는 단위 테스트에서
+//       지양해야 합니다.
+//       단위 테스트 케이스 안에서 제어 구문(조건문, 반복문, 예외 처리)의 발생을
+//       최소화해야 합니다.
+
 //   3) 신뢰성
 
 #define SPEC printf
@@ -57,9 +64,14 @@ TEST(CalcTest, PressMinus)
     calc->PressEquals();
 
     // Assert
+#if 0
     if (calc->Display() != 5) {
         FAIL() << "결과값이 5가 아닙니다.";
     } else {
         SUCCEED();
     }
+#endif
+    // xUnit Test Framework은 다양한 단언문을 제공하고 있습니다.
+    // : ASSERT_EQ / NE / LT / LE / GT / GE ...
+    ASSERT_EQ(calc->Display(), 5) << "10에서 5를 뺐을 때";
 }
