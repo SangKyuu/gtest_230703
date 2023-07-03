@@ -27,11 +27,31 @@ public:
     }
 };
 
+class MyEnvironment2 : public testing::Environment {
+public:
+    void SetUp() override
+    {
+        std::cout << "MyEnvironment2.SetUp()" << std::endl;
+    }
+
+    void TearDown() override
+    {
+        std::cout << "MyEnvironment2.TearDown()" << std::endl;
+    }
+};
+
 // 2) 등록하는 방법
 // > 주의사항: 객체를 new로 생성해서 전달해야 합니다.
 
 //   - 전역 변수
+//  => 등록되는 순서가 중요하다면, 전역 변수를 기반으로 사용하는 것은 안됩니다.
+//     C++에서는 전역 변수의 초기화 순서가 다른 파일 단위에서 명확하게 정의되어 있지 않습니다.
+
+// test1.cpp
 // testing::Environment* myEnv1 = testing::AddGlobalTestEnvironment(new MyEnvironment);
+
+// test2.cpp
+// testing::Environment* myEnv2 = testing::AddGlobalTestEnvironment(new MyEnvironment2);
 
 //   - main 함수
 int main(int argc, char** argv)
@@ -41,6 +61,7 @@ int main(int argc, char** argv)
     // 구글 테스트 프레임워크의 옵션을 처리하고, 제거합니다.
 
     testing::AddGlobalTestEnvironment(new MyEnvironment);
+    testing::AddGlobalTestEnvironment(new MyEnvironment2);
 
     return RUN_ALL_TESTS();
 }
