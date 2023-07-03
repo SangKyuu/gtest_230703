@@ -28,9 +28,9 @@ TEST(CalcTest, PressPlus)
 }
 
 // 3. 테스트케이스를 작성하는 방법 - 3A
-//   1) Arrange: 테스트 대상 코드를 초기화하고, 필요한 경우 설정하고 준비합니다.
-//   2) Act: 테스트 대상 코드에 작용을 가합니다.
-//   3) Assert: 기대하는 바를 단언합니다.
+//   1) Arrange/Given: 테스트 대상 코드를 초기화하고, 필요한 경우 설정하고 준비합니다.
+//   2) Act/When: 테스트 대상 코드에 작용을 가합니다.
+//   3) Assert/Then: 기대하는 바를 단언합니다.
 
 // 4. 테스트 코드의 품질
 //   1) 가독성
@@ -47,6 +47,11 @@ TEST(CalcTest, PressPlus)
 //       최소화해야 합니다.
 
 //   3) 신뢰성
+//    - 테스트의 결과를 신뢰할 수 있는가?
+
+// 4. TDD(Test Driven Development) vs BDD(Behavior Driven Development)
+//   1) 가독성 => 용어를 사람의 자연어와 가깝게 사용합니다.
+//   2) 상태 검증 보다는 행위 검증을 적극적으로 사용합니다.
 
 #define SPEC printf
 
