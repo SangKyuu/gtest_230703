@@ -2,7 +2,7 @@
 class Calc {
 public:
     //---- 요구사항의 변경
-    // Calc(int n) { }
+    Calc(int n) { }
     //----
 
     double Display() { return 0.0; }
@@ -73,7 +73,7 @@ TEST(CalcTest, PressMinus)
 // 1) testing::Test 자식 클래스를 정의합니다.
 class CalcTest : public testing::Test {
 protected:
-    Calc* CreateCalc() { return new Calc; }
+    Calc* CreateCalc() { return new Calc(0); }
 };
 
 // 2) TEST_F를 통해 테스트 케이스를 만들어야 합니다.
