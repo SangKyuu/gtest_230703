@@ -50,3 +50,36 @@ TEST(SampleTest, Sample3)
     ASSERT_NE(user, nullptr); // 의도적으로 이후의 단언문을 수행하지 않습니다.
     EXPECT_EQ(user->GetName(), "Tom");
 }
+
+// 2. C 문자열 비교 단언문
+//  => char[], const char*
+//   EXPECT_STREQ / STRNE
+//   EXPECT_STRCASEEQ / STRCASENE => 대소문자 무시
+TEST(SampleTest2, Sample1)
+{
+    std::string s1 = "hello";
+    std::string s2 = "hello";
+    EXPECT_EQ(s1, s2);
+
+    const char* s3 = "hello";
+    char s4[] = "Hello";
+    // EXPECT_EQ(s3, s4); // s3 == s4
+    // EXPECT_STREQ(s3, s4);
+    EXPECT_STRCASEEQ(s3, s4);
+}
+
+// 3. 부동 소수점 비교 단언문
+// => EXPECT_FLOAT_EQ / NE
+//    EXPECT_DOUBLE_EQ / NE
+
+// => 오차 범위를 직접 지정하고 싶다면,
+//    EXPECT_NEAR
+TEST(SampleTest3, Sample1)
+{
+    double a = 0.7;
+    double b = 0.1 * 7.1;
+
+    // EXPECT_EQ(a, b);
+    EXPECT_FLOAT_EQ(a, b);
+    EXPECT_NEAR(a, b, 0.00000001);
+}
