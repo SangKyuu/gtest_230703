@@ -53,11 +53,11 @@ TEST(CalcTest, PressPlus)
 //   1) 가독성 => 용어를 사람의 자연어와 가깝게 사용합니다.
 //   2) 상태 검증 보다는 행위 검증을 적극적으로 사용합니다.
 
-#define SPEC printf
+#define SPEC(msg) printf("SPEC> " msg "\n")
 
 TEST(CalcTest, PressMinus)
 {
-    SPEC("10에서 5를 뺐을 때, 5가 나오지는 여부를 검증합니다.\n");
+    SPEC("10에서 5를 뺐을 때, 5가 나오지는 여부를 검증합니다.");
 
     // Arrange
     Calc* calc = new Calc;
@@ -78,5 +78,7 @@ TEST(CalcTest, PressMinus)
 #endif
     // xUnit Test Framework은 다양한 단언문을 제공하고 있습니다.
     // : ASSERT_EQ / NE / LT / LE / GT / GE ...
-    ASSERT_EQ(calc->Display(), 5) << "10에서 5를 뺐을 때";
+    // ASSERT_EQ(calc->Display(), 5) << "10에서 5를 뺐을 때";
+    ASSERT_DOUBLE_EQ(calc->Display(), 5) << "10에서 5를 뺐을 때";
+    // 실수 타입은 전용 단언문을 통해 비교해야 합니다.
 }
