@@ -72,13 +72,15 @@ TEST(CalcTest, PressMinus)
 
 // 1) testing::Test 자식 클래스를 정의합니다.
 class CalcTest : public testing::Test {
+protected:
+    Calc* CreateCalc() { return new Calc; }
 };
 
 // 2) TEST_F를 통해 테스트 케이스를 만들어야 합니다.
 // class CalcTest_PressPlus_Test : public CalcTest
 TEST_F(CalcTest, PressPlus)
 {
-    Calc* calc = new Calc;
+    Calc* calc = CreateCalc();
 
     calc->Enter(10);
     calc->PressPlus();
@@ -91,7 +93,7 @@ TEST_F(CalcTest, PressPlus)
 // class CalcTest_PressMinus_Test : public CalcTest
 TEST_F(CalcTest, PressMinus)
 {
-    Calc* calc = new Calc;
+    Calc* calc = CreateCalc();
 
     calc->Enter(10);
     calc->PressMinus();
