@@ -114,10 +114,30 @@ TEST(SampleTest4, OpenFile)
 //  => EXPECT_THROW: 기대한 예외가 발생하는지 여부를 검증합니다.
 //     EXPECT_NO_THROW: 예외가 발생하지 않음을 검증합니다.
 //     EXPECT_ANY_THROW: 예외가 발생하는지 여부를 검증합니다.
-
 TEST(SampleTest4, OpenFile2)
 {
     std::string emptyFileName = "";
 
     EXPECT_THROW(OpenFile(emptyFileName), std::invalid_argument);
 }
+
+// 5. 테스트 비활성화
+// - 테스트가 유지보수의 대상일 경우, 반드시 실패해야 합니다.
+// - 테스트를 비활성화하기 위해서, 테스트를 주석처리하게 되면
+//   "잊혀진 테스트"가 됩니다.
+// => 테스트를 비활성화해서, 테스트를 수행하지 않고,
+//    결과에 포함되지는 않지만 비활성화 되었다는 사실을 지속적으로 알리는 기능이
+//    필요합니다.
+
+// - 테스트케이스 또는 테스트스위트 이름이 DISABLED_로 시작하면
+//   테스트는 비활성화됩니다.
+// TEST(ImageProcessorTest, DISABLED_ResizeImage)
+TEST(DISABLED_ImageProcessorTest, ResizeImage)
+{
+    // 작업 중입니다.
+    FAIL() << "작업 중입니다.";
+}
+
+class DISABLED_ImageTest : public testing::Test { };
+TEST_F(DISABLED_ImageTest, foo) { }
+TEST_F(DISABLED_ImageTest, goo) { }
