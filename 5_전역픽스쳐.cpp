@@ -65,3 +65,8 @@ int main(int argc, char** argv)
 
     return RUN_ALL_TESTS();
 }
+
+// Google Test
+// 1) Test Fixture - xUnit
+// 2) Test Suite Fixture - xUnit
+// 3) Global Fixture - Google Test
