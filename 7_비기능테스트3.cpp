@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 
+#ifdef GTEST_LEAK_TEST
 #define DECLARE_LEAK_TEST()               \
     static int allocCount;                \
     void* operator new(size_t size)       \
@@ -17,6 +18,10 @@
 
 #define IMPLEMENTS_LEAK_TEST(classname) \
     int classname::allocCount = 0;
+#else
+#define DECLARE_LEAK_TEST()
+#define IMPLEMENTS_LEAK_TEST(classname)
+#endif
 
 class Image {
     std::string url;
@@ -57,13 +62,17 @@ class ImageTest : public testing::Test {
 public:
     void SetUp() override
     {
+#ifdef GTEST_LEAK_TEST
         alloc = Image::allocCount;
+#endif
     }
 
     void TearDown() override
     {
+#ifdef GTEST_LEAK_TEST
         int diff = Image::allocCount - alloc;
         EXPECT_EQ(diff, 0) << diff << " object(s) leaked";
+#endif
     }
 };
 
@@ -71,3 +80,5 @@ TEST_F(ImageTest, DrawImage)
 {
     EXPECT_TRUE(DrawImage("https://a.com/a.jpg"));
 }
+
+// g++ 7_비기능테스트3.cpp -I./googletest/googletest/include -L. -lgtest -pthread -DGTEST_LEAK_TEST
