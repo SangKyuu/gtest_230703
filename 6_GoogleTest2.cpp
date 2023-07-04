@@ -22,3 +22,30 @@ TEST(ImageTest, hoo) { }
 TEST(ImageProcessorTest, foo) { }
 TEST(ImageProcessorTest, goo) { }
 TEST(ImageProcessorTest, hoo) { }
+
+// 7. 반복 테스트 / 순서 무작위
+// $ ./a.out --gtest_repeat=10 --gtest_shuffle
+
+// 테스트를 반복적으로 수행하다가, 테스트가 실패할 경우, 테스트를 강제로
+// 종료할 수 있습니다.
+// $ ./a.out --gtest_repeat=10 --gtest_shuffle --gtest_break_on_failure
+
+// 테스트가 반복적으로 수행되어도, 테스트가 어떤 순서로 수행되어도
+// 동일한 결과가 나올 수 있도록 만들어주어야 합니다.
+int cnt = 0;
+int GetCount() { return ++cnt; }
+
+TEST(SampleTest, Sample1)
+{
+    EXPECT_EQ(1, GetCount());
+}
+
+TEST(SampleTest, Sample2)
+{
+    EXPECT_EQ(2, GetCount());
+}
+
+TEST(SampleTest, Sample3)
+{
+    cnt = 0;
+}
