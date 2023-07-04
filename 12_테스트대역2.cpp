@@ -116,7 +116,7 @@ TEST(LoggerTest, IsValidLogFilename_NameShorterThan5Chars_Returns_False)
 
 // 테스트 대역은 용도와 목적에 따라 4가지가 있습니다.
 // => xUnit Test Pattern
-//    테스트 대역이라는 용어를 도입했습니다.
+//    테스트 대역(Test Double)이라는 용어를 도입했습니다.
 
 // 1) Test Stub
 // 2) Fake Object
