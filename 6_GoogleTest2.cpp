@@ -58,6 +58,25 @@ TEST(SampleTest, Sample3)
 // => 1.10 이후로 JSON 형식을 지원합니다.
 // $ ./a.out --gtest_output=json
 
+// 9. 테스트 결과 포맷터의 결과에 추가적인 정보를 기록할 수 있습니다.
+
+// #define SPEC(msg) printf("SPEC> " msg "\n")
+#define SPEC(msg)                    \
+    do {                             \
+        printf("SPEC> " msg "\n");   \
+        RecordProperty("spec", msg); \
+    } while (0)
+
+// => RecordProperty(key, value)
+//    추가적인 정보를 test_detail.xml / test_detail.json에 기록할 수 있습니다.
+
+TEST(ImageProcessorTest, ResizeTest)
+{
+    SPEC("이미지 프로세서를 이용해서, 이미지를 리사이즈 합니다.");
+    RecordProperty("cpu", 30);
+    RecordProperty("mem", "100%");
+}
+
 // C/C++ 커버리지
 // => gcov(무료)
 //    bullseye(유료) - https://www.bullseye.com/

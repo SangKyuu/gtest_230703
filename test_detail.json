@@ -1,9 +1,9 @@
 {
-  "tests": 9,
+  "tests": 10,
   "failures": 1,
   "disabled": 0,
   "errors": 0,
-  "timestamp": "2023-07-04T00:41:13Z",
+  "timestamp": "2023-07-04T00:50:20Z",
   "time": "0s",
   "name": "AllTests",
   "testsuites": [
@@ -13,7 +13,7 @@
       "failures": 0,
       "disabled": 0,
       "errors": 0,
-      "timestamp": "2023-07-04T00:41:13Z",
+      "timestamp": "2023-07-04T00:50:20Z",
       "time": "0s",
       "testsuite": [
         {
@@ -22,7 +22,7 @@
           "line": 15,
           "status": "RUN",
           "result": "COMPLETED",
-          "timestamp": "2023-07-04T00:41:13Z",
+          "timestamp": "2023-07-04T00:50:20Z",
           "time": "0s",
           "classname": "ImageTest"
         },
@@ -32,7 +32,7 @@
           "line": 17,
           "status": "RUN",
           "result": "COMPLETED",
-          "timestamp": "2023-07-04T00:41:13Z",
+          "timestamp": "2023-07-04T00:50:20Z",
           "time": "0s",
           "classname": "ImageTest"
         },
@@ -42,7 +42,7 @@
           "line": 19,
           "status": "RUN",
           "result": "COMPLETED",
-          "timestamp": "2023-07-04T00:41:13Z",
+          "timestamp": "2023-07-04T00:50:20Z",
           "time": "0s",
           "classname": "ImageTest"
         }
@@ -50,11 +50,11 @@
     },
     {
       "name": "ImageProcessorTest",
-      "tests": 3,
+      "tests": 4,
       "failures": 0,
       "disabled": 0,
       "errors": 0,
-      "timestamp": "2023-07-04T00:41:13Z",
+      "timestamp": "2023-07-04T00:50:20Z",
       "time": "0s",
       "testsuite": [
         {
@@ -63,7 +63,7 @@
           "line": 22,
           "status": "RUN",
           "result": "COMPLETED",
-          "timestamp": "2023-07-04T00:41:13Z",
+          "timestamp": "2023-07-04T00:50:20Z",
           "time": "0s",
           "classname": "ImageProcessorTest"
         },
@@ -73,7 +73,7 @@
           "line": 23,
           "status": "RUN",
           "result": "COMPLETED",
-          "timestamp": "2023-07-04T00:41:13Z",
+          "timestamp": "2023-07-04T00:50:20Z",
           "time": "0s",
           "classname": "ImageProcessorTest"
         },
@@ -83,9 +83,22 @@
           "line": 24,
           "status": "RUN",
           "result": "COMPLETED",
-          "timestamp": "2023-07-04T00:41:13Z",
+          "timestamp": "2023-07-04T00:50:20Z",
           "time": "0s",
           "classname": "ImageProcessorTest"
+        },
+        {
+          "name": "ResizeTest",
+          "file": "6_GoogleTest2.cpp",
+          "line": 73,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2023-07-04T00:50:20Z",
+          "time": "0s",
+          "classname": "ImageProcessorTest",
+          "spec": "이미지 프로세서를 이용해서, 이미지를 리사이즈 합니다.",
+          "cpu": "30",
+          "mem": "100%"
         }
       ]
     },
@@ -95,7 +108,7 @@
       "failures": 1,
       "disabled": 0,
       "errors": 0,
-      "timestamp": "2023-07-04T00:41:13Z",
+      "timestamp": "2023-07-04T00:50:20Z",
       "time": "0s",
       "testsuite": [
         {
@@ -104,7 +117,7 @@
           "line": 38,
           "status": "RUN",
           "result": "COMPLETED",
-          "timestamp": "2023-07-04T00:41:13Z",
+          "timestamp": "2023-07-04T00:50:20Z",
           "time": "0s",
           "classname": "SampleTest"
         },
@@ -114,7 +127,7 @@
           "line": 43,
           "status": "RUN",
           "result": "COMPLETED",
-          "timestamp": "2023-07-04T00:41:13Z",
+          "timestamp": "2023-07-04T00:50:20Z",
           "time": "0s",
           "classname": "SampleTest",
           "failures": [
@@ -130,7 +143,7 @@
           "line": 49,
           "status": "RUN",
           "result": "COMPLETED",
-          "timestamp": "2023-07-04T00:41:13Z",
+          "timestamp": "2023-07-04T00:50:20Z",
           "time": "0s",
           "classname": "SampleTest"
         }
