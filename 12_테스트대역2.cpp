@@ -31,6 +31,13 @@ public:
 //         ------------------> FileSystem
 //                                  IsValidFilename
 
+//                      <<interface>>
+// Logger ----------->   IFileSystem
+//                            |
+//                        ----------
+//                        |        |
+//                   FileSystem   TestDouble
+
 // * 약한 결합 핵심
 //  => 협력 객체를 직접 생성하는 것이 아니라,
 //     외부에서 생성해서 전달 받아야 합니다.
@@ -78,9 +85,19 @@ public:
 //-----
 #include <gtest/gtest.h>
 
+// 테스트 대역은 협력 객체의 인터페이스를 기반으로 만듭니다.
+class StubFileSystem : public IFileSystem {
+public:
+    bool IsValidFilename(const std::string& filename) override
+    {
+        return true;
+    }
+};
+
 TEST(LoggerTest, IsValidLogFilename_NameLonggerThan5Chars_Returns_True)
 {
-    Logger logger;
+    StubFileSystem stub;
+    Logger logger(&stub);
     std::string validFilename = "valid.log";
 
     EXPECT_TRUE(logger.IsValidLogFilename(validFilename))
@@ -89,7 +106,8 @@ TEST(LoggerTest, IsValidLogFilename_NameLonggerThan5Chars_Returns_True)
 
 TEST(LoggerTest, IsValidLogFilename_NameShorterThan5Chars_Returns_False)
 {
-    Logger logger;
+    StubFileSystem stub;
+    Logger logger(&stub);
     std::string invalidFilename = "bad.log";
 
     EXPECT_FALSE(logger.IsValidLogFilename(invalidFilename))
