@@ -5,6 +5,7 @@ class Engine {
 public:
     virtual ~Engine() { }
 
+    // 부모가 제공하는 함수가 가상함수입니다.
     virtual void Start()
     {
         // ...
@@ -31,6 +32,9 @@ public:
 };
 
 #include <gtest/gtest.h>
+
+// 전제
+// => 부모가 제공하는 함수가 반드시 가상함수이어야 합니다.
 
 // Car의 Go가 호출되었을 때, Engine의 Start가 제대로 호출되었는지 여부를
 // 검증하고 싶습니다.
