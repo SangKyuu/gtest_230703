@@ -57,3 +57,7 @@ TEST(SampleTest, Sample3)
 
 // => 1.10 이후로 JSON 형식을 지원합니다.
 // $ ./a.out --gtest_output=json
+
+// C/C++ 커버리지
+// => gcov(무료)
+//    bullseye(유료) - https://www.bullseye.com/
