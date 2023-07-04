@@ -20,3 +20,9 @@ TEST_P(SampleTest, Sample)
 {
     std::cout << GetParam() << std::endl;
 }
+
+//------
+//  Google Test에서 테스트케이스를 만드는 방법 3가지
+// 1) TEST
+// 2) TEST_F
+// 3) TEST_P
