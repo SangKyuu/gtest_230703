@@ -55,6 +55,8 @@ public:
 
 #include <gmock/gmock.h> // GoogleTest + GoogleMock
 
+// Google Mock이 1.10 이후로 사용 방법이 변경되었습니다.
+
 // 모의 객체(테스트 대역)을 만들어야 합니다.
 class MockDLoggerTarget : public DLoggerTarget {
 public:
