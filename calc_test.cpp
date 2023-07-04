@@ -1,13 +1,18 @@
 // calc_test.cpp
 
+#if 1
 extern "C" {
 #include "calc.h"
 }
+#endif
+
+// #include "calc.c"
 
 #include <gtest/gtest.h>
 
 TEST(CalcTest, Add)
 {
+    foo();
     EXPECT_EQ(30, Add(10, 20));
 }
 
