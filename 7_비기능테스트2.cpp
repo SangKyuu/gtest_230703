@@ -39,7 +39,7 @@ bool DrawImage(const std::string& url)
     Image* image = new Image(url);
     image->Draw();
 
-    delete image;
+    // delete image;
 
     return true;
 }
