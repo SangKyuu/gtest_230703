@@ -53,43 +53,33 @@ public:
 // - 객체에 작용을 가한 후, 내부적으로 발생하는 함수의 호출 여부, 호출 횟수, 호출 순서, 호출 인자
 //   정보를 통해 정상 동작 여부를 검증합니다.
 
-#include <gtest/gtest.h>
-#include <algorithm>
+#include <gmock/gmock.h> // GoogleTest + GoogleMock
 
-class SpyTarget : public DLoggerTarget {
-    std::vector<std::string> history;
-
-    std::string concat(Level level, const std::string& message)
-    {
-        return message + std::to_string(level);
-    }
-
+// 모의 객체(테스트 대역)을 만들어야 합니다.
+class MockDLoggerTarget : public DLoggerTarget {
 public:
-    void Write(Level level, const std::string& message) override
-    {
-        // 목격한 일을 기록합니다.
-        history.push_back(concat(level, message));
-    }
+    // 행위 기반 검증을 수행하는 메소드에 대해서
+    // 아래와 같이 작성을 해주어야 합니다.
+    // : MOCK_METHOD{인자개수}(함수 이름, 함수 타입);
 
-    // 테스트를 통해 결과를 확인할 수 있는 기능을 제공합니다.
-    bool IsReceived(Level level, const std::string& message)
-    {
-        return std::find(
-                   std::begin(history), std::end(history),
-                   concat(level, message))
-            != end(history);
-    }
+    MOCK_METHOD2(Write, void(Level level, const std::string& message)); // Mocking
 };
 
+// 주의사항
+// > Google Mock은 Act를 수행하기 전에 EXPECT_CALL을 먼저해야 합니다.
 TEST(DLoggerTest, Write)
 {
+    // Arrange
     DLogger logger;
-    SpyTarget spy1, spy2;
-    logger.AddTarget(&spy1);
-    logger.AddTarget(&spy2);
+    MockDLoggerTarget mock1, mock2;
+    logger.AddTarget(&mock1);
+    logger.AddTarget(&mock2);
 
+    // Assert
+    // 행위 기반 검증을 수행할 수 있습니다.
+    EXPECT_CALL(mock1, Write(INFO, "test_message"));
+    EXPECT_CALL(mock2, Write(INFO, "test_message"));
+
+    // Act
     logger.Write(INFO, "test_message");
-
-    EXPECT_TRUE(spy1.IsReceived(INFO, "test_message"));
-    EXPECT_TRUE(spy2.IsReceived(INFO, "test_message"));
 }
