@@ -43,9 +43,17 @@ TEST(SampleTest, Sample1)
 TEST(SampleTest, Sample2)
 {
     EXPECT_EQ(2, GetCount());
+    FAIL() << "실패!";
 }
 
 TEST(SampleTest, Sample3)
 {
     cnt = 0;
 }
+
+// 8. 테스트 결과 포맷터(Test Result Formatter)
+// => 테스트의 결과를 XML로 export 할 수 있습니다.
+// $ ./a.out --gtest_output=xml
+
+// => 1.10 이후로 JSON 형식을 지원합니다.
+// $ ./a.out --gtest_output=json
