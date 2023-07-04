@@ -58,9 +58,26 @@ public:
 //  의도: 다른 컴포넌트로부터의 간접 입력에 의존하는 로직을 독립적으로 검증하고 싶다.
 //  방법: 실제 의존하는 객체를 테스트 대역으로 교체해서,
 //       SUT가 테스트하는데 필요한 결과를 보내도록 제어합니다.
+
+class StubTime : public Time {
+    std::string result;
+
+public:
+    StubTime(const std::string& time)
+        : result(time)
+    {
+    }
+
+    std::string GetCurrentTime() const override
+    {
+        return result;
+    }
+};
+
 TEST(UserTest, Alarm_10)
 {
-    Clock clock;
+    // Clock clock;
+    StubTime clock("10:00");
     User user(&clock);
 
     EXPECT_EQ(user.Alarm(), 100);
@@ -68,7 +85,8 @@ TEST(UserTest, Alarm_10)
 
 TEST(UserTest, Alarm_00)
 {
-    Clock clock;
+    // Clock clock;
+    StubTime clock("00:00");
     User user(&clock);
 
     EXPECT_EQ(user.Alarm(), 42);
