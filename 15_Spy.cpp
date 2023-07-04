@@ -60,6 +60,7 @@ public:
         history.push_back(concat(level, message));
     }
 
+    // 테스트를 통해 결과를 확인할 수 있는 기능을 제공합니다.
     bool IsReceived(Level level, const std::string& message)
     {
         return std::find(
