@@ -13,8 +13,10 @@ std::vector<std::string> cars = {
     "Genesis",
 };
 
+int years[] = { 2022, 2023, 2024 };
+
 // tuple을 이용해야 합니다.
-using CarType = std::tuple<std::string, Color>;
+using CarType = std::tuple<std::string, Color, int>;
 
 class CarTest : public testing::TestWithParam<CarType> { };
 
@@ -22,7 +24,8 @@ class CarTest : public testing::TestWithParam<CarType> { };
 INSTANTIATE_TEST_SUITE_P(CarValues, CarTest,
     testing::Combine(
         testing::ValuesIn(cars),
-        testing::Values(RED, WHITE, BLACK)));
+        testing::Values(RED, WHITE, BLACK),
+        testing::ValuesIn(years)));
 
 TEST_P(CarTest, Sample)
 {
@@ -30,6 +33,7 @@ TEST_P(CarTest, Sample)
 
     std::string car = std::get<0>(data);
     Color color = std::get<1>(data);
+    int year = std::get<2>(data);
 
-    std::cout << car << ", " << color << std::endl;
+    std::cout << car << ", " << color << ", " << year << std::endl;
 }
