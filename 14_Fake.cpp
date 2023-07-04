@@ -65,17 +65,25 @@ public:
 
     User* LoadUser(const std::string& name) override
     {
+        // return nullptr;
         return data[name];
     }
 };
 
-// User => == 연산자 재정의
+// User: EXPECT_EQ => == 연산자 재정의
 bool operator==(const User& lhs, const User& rhs)
 {
-    return lhs.GetName() == rhs.GetName() &&
-        lhs.GetAge() == rhs.GetAge();
+    return false;
+    // return lhs.GetName() == rhs.GetName() && lhs.GetAge() == rhs.GetAge();
 }
 
+// 사용자 정의 타입을 구글 테스트 프레임워크 제대로 표현하기 위해서는
+// 연산자 재정의가 필요합니다.
+//  => << 연산자 재정의
+std::ostream& operator<<(std::ostream& os, const User& user)
+{
+    return os << "(" << user.GetName() << ", " << user.GetAge() << ")";
+}
 
 TEST(UserRepositoryTest, Save)
 {
@@ -87,6 +95,7 @@ TEST(UserRepositoryTest, Save)
     repo.Save(&expected);
     User* actual = repo.Load(testName);
 
+    ASSERT_NE(actual, nullptr);
     EXPECT_EQ(*actual, expected);
     // 사용자 정의 타입에 대해서 단언문을 사용하기 위해서는
     // 단언문의 연산자에 해당하는 연산자 오버로딩을 제공해주어야 합니다.
