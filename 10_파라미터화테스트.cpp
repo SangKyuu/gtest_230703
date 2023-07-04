@@ -20,6 +20,26 @@ bool IsPrime(int value)
 //          기존) class PrimeTest : public testing::Test {};
 // 파라미터화 테스트) class PrimeTest : public testing::TestWithParam<데이터타입> {};
 class PrimeTest : public testing::TestWithParam<int> {
+public:
+    void SetUp() override
+    {
+        std::cout << "SetUp()" << std::endl;
+    }
+
+    void TearDown() override
+    {
+        std::cout << "TearDown()" << std::endl;
+    }
+
+    static void SetUpTestSuite()
+    {
+        std::cout << "SetUpTestSuite()" << std::endl;
+    }
+
+    static void TearDownTestSuite()
+    {
+        std::cout << "TearDownTestSuite()" << std::endl;
+    }
 };
 
 // 2. 데이터 셋을 정의해야 합니다.
@@ -29,7 +49,17 @@ INSTANTIATE_TEST_SUITE_P(PrimeValues, PrimeTest,
 
 // 3. 데이터셋을 활용하는 다양한 테스트케이스를 작성하면 됩니다.
 //  -   TEST: 암묵적인 테스트 스위트 클래스
+//   TEST(SampleTest, foo) {}
+
 //  - TEST_F: 명시적인 테스트 스위트 클래스
+//  class SampleTest : public testing::Test {
+//   protected:
+//     => 암묵적 설치/해체
+//     void SetUp() override {}
+//     void TearDown() override {}
+//  };
+//  TEST_F(SampleTest, foo) {}
+
 //  - TEST_P: 파라미터화 테스트의 테스트케이스를 만드는 방법
 TEST_P(PrimeTest, IsPrime)
 {
