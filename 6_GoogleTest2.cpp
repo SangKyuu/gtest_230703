@@ -6,6 +6,10 @@
 // => 테스트 이름을 잘 구성하는 것이 효과적입니다.
 
 // $ ./a.out --gtest_filter=ImageTest.foo
+// $ ./a.out --gtest_filter=ImageTest.foo:ImageProcessorTest.goo
+// $ ./a.out --gtest_filter=*.foo
+// $ ./a.out --gtest_filter=Image*.goo
+// $ ./a.out --gtest_filter=Image*.*:-*.goo
 
 // ImageTest.foo
 TEST(ImageTest, foo) { }
@@ -14,7 +18,7 @@ TEST(ImageTest, goo) { }
 // ImageTest.hoo
 TEST(ImageTest, hoo) { }
 
-// // ImageProcessorTest.foo
+// ImageProcessorTest.foo
 TEST(ImageProcessorTest, foo) { }
 TEST(ImageProcessorTest, goo) { }
 TEST(ImageProcessorTest, hoo) { }
