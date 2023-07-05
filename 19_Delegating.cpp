@@ -24,6 +24,10 @@ class MockCalc : public Calc {
 public:
     MOCK_METHOD(int, Add, (int a, int b), (override));
     MOCK_METHOD(int, Sub, (int a, int b), (override));
+
+    // 부모의 기능을 이용하기 위해서는 별도의 함수를 제공해야 합니다.
+    int AddImpl(int a, int b) { return Calc::Add(a, b); }
+    int SubImpl(int a, int b) { return Calc::Sub(a, b); }
 };
 
 // Google Mock은 MOCK_METHOD한 메소드의 행위 기반 검증 뿐 아니라,
@@ -46,7 +50,13 @@ TEST(CalcTest, Sample)
 
     // ON_CALL(mock, Add).WillByDefault(&Add); // 함수
     // ON_CALL(mock, Add).WillByDefault(Adder()); // 함수 객체
-    ON_CALL(mock, Add).WillByDefault([](int a, int b) { return a + b; }); // 람다 표현식
+    // ON_CALL(mock, Add).WillByDefault([](int a, int b) { return a + b; }); // 람다 표현식
+    ON_CALL(mock, Add).WillByDefault([&mock](int a, int b) {
+        return mock.AddImpl(a, b);
+    });
+    ON_CALL(mock, Sub).WillByDefault([&mock](int a, int b) {
+        return mock.SubImpl(a, b);
+    });
 
     // EXPECT_CALL(mock, Add(10, 20));
     // EXPECT_CALL(mock, Sub(100, 50));
