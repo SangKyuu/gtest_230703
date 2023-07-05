@@ -10,6 +10,9 @@ public:
 
     virtual void Play() = 0;
     virtual void Stop(int n) = 0;
+
+    virtual std::string GetTitle() const = 0;
+    virtual void Go() const noexcept = 0;
 };
 
 #include <gmock/gmock.h>
@@ -22,6 +25,9 @@ public:
     // void Play() override {}
     MOCK_METHOD(void, Play, (), (override));
     MOCK_METHOD(void, Stop, (int n), (override));
+
+    // std::string GetTitle() const override {}
+    MOCK_METHOD(std::string, GetTitle, (), (const, override));
 };
 
 TEST(MP3Test, Sample)
