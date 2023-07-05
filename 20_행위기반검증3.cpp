@@ -77,6 +77,7 @@ TEST(CalcTest, Sample3)
     MockCalc mock;
 
     EXPECT_CALL(mock, Add(10, 20))
+        .WillOnce(Return(100))
         .WillRepeatedly(Return(42));
 
     // std::cout << mock.Add(10, 20) << std::endl;
