@@ -95,6 +95,33 @@ TEST(UserTest, Alarm_00)
 // GoogleMock을 이용해서 위의 테스트 케이스를 작성해보세요.
 #include <gmock/gmock.h>
 
+class MockTime : public Time {
+public:
+    // std::string GetCurrentTime() const override
+    MOCK_METHOD(std::string, GetCurrentTime, (), (const, override));
+};
+
+using testing::NiceMock;
+using testing::Return;
+
+TEST(UserTest2, Alarm_10)
+{
+    NiceMock<MockTime> clock;
+    ON_CALL(clock, GetCurrentTime).WillByDefault(Return("10:00"));
+    User user(&clock);
+
+    EXPECT_EQ(user.Alarm(), 100);
+}
+
+TEST(UserTest2, Alarm_00)
+{
+    NiceMock<MockTime> clock;
+    ON_CALL(clock, GetCurrentTime).WillByDefault(Return("00:00"));
+    User user(&clock);
+
+    EXPECT_EQ(user.Alarm(), 42);
+}
+
 #if 0
 int main()
 {
