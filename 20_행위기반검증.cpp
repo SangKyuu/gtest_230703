@@ -46,7 +46,6 @@ void UsePerson2(Person* p)
 {
     p->Go(10, 20);
     p->Go(10, 20);
-    p->Go(10, 20);
 
     p->Go(100, 20);
 }
@@ -85,4 +84,31 @@ TEST(PersonTest2, Sample)
     EXPECT_CALL(mock, Go).Times(Between(1, 3));
 
     UsePerson2(&mock);
+}
+
+// 3. 함수 호출 인자
+//  => Matcher
+
+void UsePerson3(Person* p)
+{
+    p->Go(10, 20);
+    p->Go(10, 20);
+    p->Go(-10, 20);
+}
+
+using testing::Eq;
+using testing::Ge;
+using testing::Gt;
+using testing::Le;
+using testing::Lt;
+
+TEST(PersonTest3, Sample)
+{
+    MockPerson mock;
+
+    // > Go의 첫번째 인자는 10이상이고,
+    //       두번째 인자는 20인 형태로 3번 호출됩니다.
+    EXPECT_CALL(mock, Go(Ge(10), Eq(20))).Times(3);
+
+    UsePerson3(&mock);
 }
