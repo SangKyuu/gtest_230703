@@ -114,6 +114,27 @@ TEST(LoggerTest, IsValidLogFilename_NameShorterThan5Chars_Returns_False)
         << "확장자를 제외한 파일명이 다섯글자 미만일 때";
 }
 
+#include <gmock/gmock.h>
+
+class MockFileSystem : public IFileSystem {
+public:
+    MOCK_METHOD(bool, IsValidFilename, (const std::string& filename), (override));
+};
+
+using testing::NiceMock;
+using testing::Return;
+
+TEST(LoggerTest2, IsValidLogFilename_NameLonggerThan5Chars_Returns_True)
+{
+    NiceMock<MockFileSystem> stub;
+    ON_CALL(stub, IsValidFilename).WillByDefault(Return(true));
+    Logger logger(&stub);
+    std::string validFilename = "valid.log";
+
+    EXPECT_TRUE(logger.IsValidLogFilename(validFilename))
+        << "확장자를 제외한 파일명이 다섯글자 이상일 때";
+}
+
 // 테스트 대역은 용도와 목적에 따라 4가지가 있습니다.
 // => xUnit Test Pattern
 //    테스트 대역(Test Double)이라는 용어를 도입했습니다.

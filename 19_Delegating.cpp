@@ -34,6 +34,7 @@ public:
 // 결과를 제어하는 기능을 제공하고 있습니다.
 // => Delegating
 //  : ON_CALL
+//   -> Test Stub / Fake Object
 
 using testing::Return;
 
