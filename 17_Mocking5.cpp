@@ -22,6 +22,7 @@ public:
     // IPacketStream 타입은 반드시
     //  AppendPacket / GetPacket 함수를 제공해야 합니다.
     // => 암묵적인 인터페이스의 약속
+    // => C++ 단위 전략
 
     template <typename IPacketStream>
     void ReadPacket(IPacketStream* stream, size_t packetNumber)
