@@ -6,6 +6,7 @@
 //   3) 함수 호출 인자
 //   4) 함수 호출 순서
 #include <vector>
+#include <string>
 
 class Person {
 public:
@@ -13,6 +14,8 @@ public:
 
     virtual void Go(int x, int y) = 0;
     virtual void Print(const std::vector<int>& numbers) = 0;
+
+    virtual void SetAddress(const std::string& address) = 0;
 };
 
 #include <gmock/gmock.h>
@@ -21,6 +24,8 @@ class MockPerson : public Person {
 public:
     MOCK_METHOD(void, Go, (int x, int y), (override));
     MOCK_METHOD(void, Print, (const std::vector<int>& numbers), (override));
+
+    MOCK_METHOD(void, SetAddress, (const std::string& address), (override));
 };
 
 void UsePerson(Person* p)
