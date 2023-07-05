@@ -33,6 +33,8 @@ Uninteresting mock function call - returning default value.
 // 2. Nice Mock
 // => 테스트의 결과도 성공이고, 경고도 발생하지 않습니다.
 
+// 3. Strict Mock
+// => 테스트가 실패합니다.
 
 */
 
@@ -43,11 +45,13 @@ public:
 };
 
 using testing::NiceMock;
+using testing::StrictMock;
 
 TEST(CarTest, Process)
 {
     // MockCar mock;
-    NiceMock<MockCar> mock;
+    // NiceMock<MockCar> mock;
+    StrictMock<MockCar> mock;
 
     EXPECT_CALL(mock, Go());
 
