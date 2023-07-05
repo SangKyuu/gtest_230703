@@ -22,7 +22,7 @@ public:
 
 void UsePerson(Person* p)
 {
-    p->Go(100, 20);
+    p->Go(10, 20);
 }
 
 // 1. 함수 호출 여부
@@ -38,4 +38,26 @@ TEST(PersonTest, Sample)
     // Go(10, 20) 함수의 호출 여부를 판단합니다.
 
     UsePerson(&mock);
+}
+
+// 2. 함수 호출 횟수
+void UsePerson2(Person* p)
+{
+    p->Go(10, 20);
+    p->Go(10, 20);
+    p->Go(10, 20);
+}
+
+// EXPECT_CALL(...).Times(N)
+
+TEST(PersonTest2, Sample)
+{
+    MockPerson mock;
+
+    // EXPECT_CALL(mock, Go(10, 20));
+    // 1번의 호출이 발생하는 것을 기대합니다.
+
+    EXPECT_CALL(mock, Go(10, 20)).Times(3);
+
+    UsePerson2(&mock);
 }
