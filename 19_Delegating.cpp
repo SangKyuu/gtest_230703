@@ -33,15 +33,26 @@ public:
 
 using testing::Return;
 
+int Add(int a, int b) { return a + b; }
+struct Adder {
+    int operator()(int a, int b) const { return a + b; }
+};
+
 TEST(CalcTest, Sample)
 {
     MockCalc mock;
-    ON_CALL(mock, Add(10, 20)).WillByDefault(Return(30));
+    // ON_CALL(mock, Add(10, 20)).WillByDefault(Return(30));
+    // ON_CALL(mock, Add).WillByDefault(Return(30));
 
-    EXPECT_CALL(mock, Add(10, 20));
-    EXPECT_CALL(mock, Sub(100, 50));
+    // ON_CALL(mock, Add).WillByDefault(&Add); // 함수
+    // ON_CALL(mock, Add).WillByDefault(Adder()); // 함수 객체
+    ON_CALL(mock, Add).WillByDefault([](int a, int b) { return a + b; }); // 람다 표현식
 
-    Process(&mock);
+    // EXPECT_CALL(mock, Add(10, 20));
+    // EXPECT_CALL(mock, Sub(100, 50));
 
-    // std::cout << mock.Add(10, 20) << std::endl;
+    // Process(&mock);
+
+    std::cout
+        << mock.Add(100, 200) << std::endl;
 }
