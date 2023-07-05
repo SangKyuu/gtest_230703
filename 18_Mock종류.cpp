@@ -35,7 +35,8 @@ Uninteresting mock function call - returning default value.
 
 // 3. Strict Mock
 // => 테스트가 실패합니다.
-
+// => 테스트의 통과 기준이 높아질 수 있습니다.
+//    "테스트를 작성하는 비용의 증가가 발생할 수 있습니다."
 */
 
 class MockCar : public Car {
