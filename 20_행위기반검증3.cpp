@@ -80,7 +80,7 @@ TEST(CalcTest, Sample3)
         .WillOnce(Return(100))
         .WillRepeatedly(Return(42));
 
-    // std::cout << mock.Add(10, 20) << std::endl;
+    std::cout << mock.Add(10, 20) << std::endl;
     // std::cout << mock.Add(10, 20) << std::endl;
     // std::cout << mock.Add(10, 20) << std::endl;
     // std::cout << mock.Add(10, 20) << std::endl;
