@@ -30,7 +30,6 @@ void Process(Dog* p)
 // First -> Second -> Third -> Fourth
 // => testing::InSequence
 using testing::InSequence;
-
 TEST(DogTest, Sample)
 {
     InSequence seq; // 호출 순서를 검증합니다.
@@ -42,4 +41,34 @@ TEST(DogTest, Sample)
     EXPECT_CALL(mock, Fourth);
 
     Process(&mock);
+}
+
+void Process2(Dog* p)
+{
+    p->First();
+
+    p->Third();
+    p->Fourth();
+
+    p->Second();
+}
+
+// 함수의 순서 하나의 흐름 => testing::InSequence
+// 함수의 2개 이상의 흐름 => testing::Sequence
+//   EXPECT_CALL(..).InSequence()
+
+// First -------> Second                  // seq1
+//       |
+//       -------> Third ------> Fourth    // seq2
+TEST(DogTest, Sample2)
+{
+    testing::Sequence seq1, seq2;
+    MockDog mock;
+
+    EXPECT_CALL(mock, First).InSequence(seq1, seq2);
+    EXPECT_CALL(mock, Second).InSequence(seq1);
+    EXPECT_CALL(mock, Third).InSequence(seq2);
+    EXPECT_CALL(mock, Fourth).InSequence(seq2);
+
+    Process2(&mock);
 }
