@@ -24,6 +24,8 @@ using testing::StartsWith;
 
 std::vector<int> GetData() { return { 1, 10, 5 }; }
 
+// EXPECT_THAT(value, matcher)
+// ASSERT_THAT(value, matcher)
 TEST(SampleTest, GetName)
 {
     // GetName 함수의 결과의 문자열이 Hello로 시작하고, World로 끝나는지 검증하고 싶습니다.
