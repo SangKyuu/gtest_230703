@@ -91,9 +91,9 @@ TEST(PersonTest2, Sample)
 
 void UsePerson3(Person* p)
 {
-    p->Go(10, 20);
-    p->Go(10, 20);
-    p->Go(-10, 20);
+    p->Go(99, -20);
+    p->Go(100, 120);
+    p->Go(33, -25);
 }
 
 using testing::Eq;
@@ -102,13 +102,39 @@ using testing::Gt;
 using testing::Le;
 using testing::Lt;
 
+using testing::_;
+
+using testing::AllOf; // &&
+using testing::AnyOf; // ||
+using testing::Matcher;
+
 TEST(PersonTest3, Sample)
 {
     MockPerson mock;
 
     // > Go의 첫번째 인자는 10이상이고,
     //       두번째 인자는 20인 형태로 3번 호출됩니다.
-    EXPECT_CALL(mock, Go(Ge(10), Eq(20))).Times(3);
+    // EXPECT_CALL(mock, Go(Ge(10), Eq(20))).Times(3);
+
+    // > Go의 첫번째 인자는 아무값이 상관없고,
+    //       두번째 인자는 30보다 작아야 합니다.
+    // EXPECT_CALL(mock, Go(_, Lt(30))).Times(3);
+
+    // EXPECT_CALL(mock, Go(_, _)).Times(3);
+    // > EXPECT_CALL(mock, Go).Times(3);
+
+    // 첫번째 인자: 10 < arg0 <= 100
+    //           10 < arg0 && arg0 <= 100
+    //           AllOf(Gt(10), Le(100))
+    // Matcher<int> arg0 = AllOf(Gt(10), Le(100));
+    auto arg0 = AllOf(Gt(10), Le(100));
+
+    // 두번째 인자: arg1 < 0, arg1 > 100
+    //           arg1 < 0 || arg1 > 100
+    //           AnyOf(Lt(0), Gt(100))
+    Matcher<int> arg1 = AnyOf(Lt(0), Gt(100));
+
+    EXPECT_CALL(mock, Go(arg0, arg1)).Times(3);
 
     UsePerson3(&mock);
 }
