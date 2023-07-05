@@ -58,11 +58,11 @@ TEST(CalcTest, Sample)
         return mock.SubImpl(a, b);
     });
 
-    // EXPECT_CALL(mock, Add(10, 20));
-    // EXPECT_CALL(mock, Sub(100, 50));
+    EXPECT_CALL(mock, Add(10, 20));
+    EXPECT_CALL(mock, Sub(100, 50));
 
-    // Process(&mock);
+    Process(&mock);
 
-    std::cout
-        << mock.Add(100, 200) << std::endl;
+    // std::cout
+    //     << mock.Add(100, 200) << std::endl;
 }
