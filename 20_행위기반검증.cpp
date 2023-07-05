@@ -41,14 +41,27 @@ TEST(PersonTest, Sample)
 }
 
 // 2. 함수 호출 횟수
+// * 인자의 매칭에 따라서 호출 횟수 판단이 달라집니다.
 void UsePerson2(Person* p)
 {
     p->Go(10, 20);
     p->Go(10, 20);
     p->Go(10, 20);
+
+    p->Go(100, 20);
 }
 
 // EXPECT_CALL(...).Times(N)
+// EXPECT_CALL(...).Times(Cardinality)
+
+// Cardinality
+// 1) AtLeast(N) => N번 이상
+// 2) AtMost(N)  => N번 이하
+// 3) Between(A, B) => A ~ B번
+
+using testing::AtLeast;
+using testing::AtMost;
+using testing::Between;
 
 TEST(PersonTest2, Sample)
 {
@@ -57,7 +70,19 @@ TEST(PersonTest2, Sample)
     // EXPECT_CALL(mock, Go(10, 20));
     // 1번의 호출이 발생하는 것을 기대합니다.
 
-    EXPECT_CALL(mock, Go(10, 20)).Times(3);
+    // EXPECT_CALL(mock, Go(10, 20)).Times(3);
+    // EXPECT_CALL(mock, Go).Times(3);
+
+    // EXPECT_CALL(mock, Go(10, 20)).Times(2);
+    // EXPECT_CALL(mock, Go(100, 20));
+
+    // 1) Go(10, 20)은 2번 이하 호출되어야 합니다.
+    // EXPECT_CALL(mock, Go(10, 20)).Times(AtMost(2));
+    // 2) Go(100, 20)은 1번 이상 호출되어야 합니다.
+    // EXPECT_CALL(mock, Go(100, 20)).Times(AtLeast(1));
+
+    // Go는 인자에 상관없이 1번에서 3번까지 호출되어야 합니다.
+    EXPECT_CALL(mock, Go).Times(Between(1, 3));
 
     UsePerson2(&mock);
 }
