@@ -92,6 +92,9 @@ TEST(UserTest, Alarm_00)
     EXPECT_EQ(user.Alarm(), 42);
 }
 
+// GoogleMock을 이용해서 위의 테스트 케이스를 작성해보세요.
+#include <gmock/gmock.h>
+
 #if 0
 int main()
 {
