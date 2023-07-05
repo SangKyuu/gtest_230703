@@ -192,6 +192,9 @@ using testing::ContainsRegex;
 using testing::EndsWith;
 using testing::StartsWith;
 
+// Hamcrest Matcher
+//  => 비교 표현의 확장 라이브러리
+
 TEST(PersonTest3, Sample3)
 {
     MockPerson mock;
