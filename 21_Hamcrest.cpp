@@ -20,9 +20,13 @@ using testing::Gt;
 using testing::Le;
 using testing::Lt;
 using testing::Ne;
+using testing::NotNull;
 using testing::StartsWith;
 
 std::vector<int> GetData() { return { 1, 10, 5 }; }
+
+class User { };
+User* GetUser() { return nullptr; }
 
 // EXPECT_THAT(value, matcher)
 // ASSERT_THAT(value, matcher)
@@ -33,4 +37,6 @@ TEST(SampleTest, GetName)
     EXPECT_THAT(GetName(), AllOf(StartsWith("Hello"), EndsWith("World")));
 
     EXPECT_THAT(GetData(), ElementsAre(Lt(10), Ge(1), Eq(5)));
+
+    ASSERT_THAT(GetUser(), NotNull());
 }
