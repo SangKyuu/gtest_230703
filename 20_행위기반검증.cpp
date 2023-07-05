@@ -184,14 +184,24 @@ TEST(PersonTest3, Sample2)
 
 void UsePerson5(Person* p)
 {
-    p->SetAddress("Seoul");
+    // p->SetAddress("Seoul");
+    p->SetAddress("Hello 123123123 World");
 }
+
+using testing::ContainsRegex;
+using testing::EndsWith;
+using testing::StartsWith;
 
 TEST(PersonTest3, Sample3)
 {
     MockPerson mock;
 
-    EXPECT_CALL(mock, SetAddress("Seoul"));
+    // EXPECT_CALL(mock, SetAddress("Seoul"));
+    // EXPECT_CALL(mock, SetAddress(StartsWith("Hello")));
+    // EXPECT_CALL(mock, SetAddress(EndsWith("World")));
+    // EXPECT_CALL(mock, SetAddress(AllOf(StartsWith("Hello"), EndsWith("World"))));
+
+    EXPECT_CALL(mock, SetAddress(ContainsRegex("H...")));
 
     UsePerson5(&mock);
 }
