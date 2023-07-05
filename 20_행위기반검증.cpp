@@ -5,12 +5,14 @@
 //   2) 함수 호출 횟수
 //   3) 함수 호출 인자
 //   4) 함수 호출 순서
+#include <vector>
 
 class Person {
 public:
     virtual ~Person() { }
 
     virtual void Go(int x, int y) = 0;
+    virtual void Print(const std::vector<int>& numbers) = 0;
 };
 
 #include <gmock/gmock.h>
@@ -18,6 +20,7 @@ public:
 class MockPerson : public Person {
 public:
     MOCK_METHOD(void, Go, (int x, int y), (override));
+    MOCK_METHOD(void, Print, (const std::vector<int>& numbers), (override));
 };
 
 void UsePerson(Person* p)
@@ -137,4 +140,39 @@ TEST(PersonTest3, Sample)
     EXPECT_CALL(mock, Go(arg0, arg1)).Times(3);
 
     UsePerson3(&mock);
+}
+
+void UsePerson4(Person* p)
+{
+    // p->Print({ 1, 2, 3 });
+    p->Print({ 24, 3, 9 });
+}
+
+// 순서에 맞게 검증합니다.
+using testing::ElementsAre;
+using testing::ElementsAreArray;
+
+// 순서에 상관없이 검증합니다.
+using testing::UnorderedElementsAre;
+using testing::UnorderedElementsAreArray;
+
+TEST(PersonTest3, Sample2)
+{
+    MockPerson mock;
+
+    // std::vector<int> v = { 1, 20, 3 };
+    // EXPECT_CALL(mock, Print(v));
+
+    // [0]: 10보다 작아야 합니다. => Lt(10)
+    // [1]: 2 이상 입니다.      => Ge(2)
+    // [2]: 1 보다 크고, 5보다 작거나 같아야 합니다. => AllOf(Gt(1), Le(5))
+    Matcher<int> data[] = { Lt(10), Ge(2), AllOf(Gt(1), Le(5)) };
+    // EXPECT_CALL(mock, Print(ElementsAreArray(data)));
+
+    // EXPECT_CALL(mock, Print(UnorderedElementsAreArray(data)));
+
+    EXPECT_CALL(mock,
+        Print(UnorderedElementsAre(Lt(10), Ge(2), AllOf(Gt(1), Le(5)))));
+
+    UsePerson4(&mock);
 }
