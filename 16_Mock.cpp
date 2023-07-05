@@ -55,16 +55,23 @@ public:
 
 #include <gmock/gmock.h> // GoogleTest + GoogleMock
 
-// Google Mock이 1.10 이후로 사용 방법이 변경되었습니다.
+// Google Mock이 1.10 이후로 사용 방법이 변경되었습니다. => Mocking
 
 // 모의 객체(테스트 대역)을 만들어야 합니다.
 class MockDLoggerTarget : public DLoggerTarget {
 public:
     // 행위 기반 검증을 수행하는 메소드에 대해서
     // 아래와 같이 작성을 해주어야 합니다.
-    // : MOCK_METHOD{인자개수}(함수 이름, 함수 타입);
 
-    MOCK_METHOD2(Write, void(Level level, const std::string& message)); // Mocking
+    // 1.10 이전
+    // : MOCK_METHOD{인자개수}(함수 이름, 함수 타입);
+    // MOCK_METHOD2(Write, void(Level level, const std::string& message)); // Mocking
+
+    // 1.10 이후
+    // : MOCK_METHOD 하나의 매크로를 통해 변경되었습니다.
+    // void Write(Level level, const std::string& message) override
+    // => MOCK_METHOD(반환타입, 함수 이름, (인자 정보), (한정자 정보))
+    MOCK_METHOD(void, Write, (Level level, const std::string& message), (override));
 };
 
 // 주의사항
