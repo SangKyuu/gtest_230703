@@ -96,21 +96,32 @@ public:
 
 void Process(Car* p)
 {
-    p->f4();
     p->f1();
-    p->f3();
+
     p->f2();
+    p->f3();
+
+    p->f4();
     p->f5();
 }
 
-// f1() ------> f2()
+// f1() ------> f2() ; s1
 //      |
-//      ------> f3()
-// f4() ------> f5()
+//      ------> f3() ; s2
+// f4() ------> f5() ; s3
+using testing::Sequence;
 
 TEST(CarTest, Sample)
 {
+    Sequence s1, s2, s3;
     MockCar mock;
+
+    EXPECT_CALL(mock, f1).InSequence(s1, s2);
+    EXPECT_CALL(mock, f2).InSequence(s1);
+    EXPECT_CALL(mock, f3).InSequence(s2);
+
+    EXPECT_CALL(mock, f4).InSequence(s3);
+    EXPECT_CALL(mock, f5).InSequence(s3);
 
     Process(&mock);
 }
