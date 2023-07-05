@@ -13,6 +13,9 @@ public:
 
     virtual std::string GetTitle() const = 0;
     virtual void Go() const noexcept = 0;
+
+    virtual std::pair<bool, int> GetPair() const = 0;
+    virtual bool CheckMap(std::map<int, double> a, bool b) const = 0;
 };
 
 #include <gmock/gmock.h>
@@ -28,6 +31,16 @@ public:
 
     // std::string GetTitle() const override {}
     MOCK_METHOD(std::string, GetTitle, (), (const, override));
+    MOCK_METHOD(void, Go, (), (const, noexcept, override));
+
+    // 주의사항: 템플릿의 타입 인자가 2개 이상인 경우
+    //         괄호로 묶어주어야 합니다.
+
+    // std::pair<bool, int> GetPair() const override
+    MOCK_METHOD((std::pair<bool, int>), GetPair, (), (const, override));
+
+    // bool CheckMap(std::map<int, double> a, bool b) const override
+    MOCK_METHOD(bool, CheckMap, ((std::map<int, double> a), bool b), (const, override));
 };
 
 TEST(MP3Test, Sample)
