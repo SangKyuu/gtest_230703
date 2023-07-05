@@ -36,6 +36,19 @@ public:
 //  : ON_CALL
 //   -> Test Stub / Fake Object
 
+//  : EXPECT_CALL
+//    을 이용해서 delegating을 수행할 수 있습니다.
+//    * 주의사항: 함수 호출 횟수 판단에 영향을 줍니다.
+
+//   - EXPECT_CALL(..)               => Times(1)
+
+//   - EXPECT_CALL(..)
+//      .WillOnce(Return(30))        => Times(1)
+
+//   - EXPECT_CALL(..)               => Times(2)
+//      .WillOnce(Return(30))
+//      .WillOnce(Return(30))
+
 using testing::Return;
 
 int Add(int a, int b) { return a + b; }
@@ -43,11 +56,25 @@ struct Adder {
     int operator()(int a, int b) const { return a + b; }
 };
 
+TEST(CalcTest, Sample2)
+{
+    MockCalc mock;
+
+    EXPECT_CALL(mock, Add(10, 20))
+        .WillOnce(Return(30))
+        .WillOnce(Return(100));
+
+    std::cout << mock.Add(10, 20) << std::endl;
+    // std::cout << mock.Add(10, 20) << std::endl;
+}
+
 TEST(CalcTest, Sample)
 {
     MockCalc mock;
 
-    EXPECT_CALL(mock, Add(10, 20));
+    EXPECT_CALL(mock, Add(10, 20))
+        .WillOnce(Return(30)); // !!!
+
     EXPECT_CALL(mock, Sub(100, 50));
 
     Process(&mock);
