@@ -181,3 +181,17 @@ TEST(PersonTest3, Sample2)
 
     UsePerson4(&mock);
 }
+
+void UsePerson5(Person* p)
+{
+    p->SetAddress("Seoul");
+}
+
+TEST(PersonTest3, Sample3)
+{
+    MockPerson mock;
+
+    EXPECT_CALL(mock, SetAddress("Seoul"));
+
+    UsePerson5(&mock);
+}
